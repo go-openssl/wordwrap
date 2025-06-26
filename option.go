@@ -16,7 +16,9 @@ func WithWidth(width int) Option {
 
 func WithPrivateKeyBegin(begin string) Option {
 	return func(w *Wordwrap) {
-		strings.ReplaceAll(begin, "\n", "")
+		begin = strings.ReplaceAll(begin, "\n", "")
+		begin = strings.ReplaceAll(begin, "\r", "")
+		begin = strings.ReplaceAll(begin, "\t", "")
 		begin += "\n"
 		w.privateKeyBegin = begin
 	}
@@ -24,7 +26,9 @@ func WithPrivateKeyBegin(begin string) Option {
 
 func WithPrivateKeyEnd(end string) Option {
 	return func(w *Wordwrap) {
-		strings.ReplaceAll(end, "\n", "")
+		end = strings.ReplaceAll(end, "\n", "")
+		end = strings.ReplaceAll(end, "\r", "")
+		end = strings.ReplaceAll(end, "\t", "")
 		end = "\n" + end
 		w.privateKeyEnd = end
 	}
@@ -32,7 +36,9 @@ func WithPrivateKeyEnd(end string) Option {
 
 func WithPublicKeyBegin(begin string) Option {
 	return func(w *Wordwrap) {
-		strings.ReplaceAll(begin, "\n", "")
+		begin = strings.ReplaceAll(begin, "\n", "")
+		begin = strings.ReplaceAll(begin, "\r", "")
+		begin = strings.ReplaceAll(begin, "\t", "")
 		begin += "\n"
 		w.publicKeyBegin = begin
 	}
@@ -40,7 +46,9 @@ func WithPublicKeyBegin(begin string) Option {
 
 func WithPublicKeyEnd(end string) Option {
 	return func(w *Wordwrap) {
-		strings.ReplaceAll(end, "\n", "")
+		end = strings.ReplaceAll(end, "\n", "")
+		end = strings.ReplaceAll(end, "\r", "")
+		end = strings.ReplaceAll(end, "\t", "")
 		end = "\n" + end
 		w.publicKeyEnd = end
 	}

@@ -1,14 +1,18 @@
 package wordwrap
 
 import (
+	"regexp"
 	"strings"
 )
 
 // convert converts the given text to a multi-line string with the specified width.
 func convert(text string, width int) string {
-	strings.ReplaceAll(text, "\n", "")
-	strings.ReplaceAll(text, "\r", "")
-	strings.ReplaceAll(text, "\t", "")
+	re, _ := regexp.Compile(`-----.*-----`)
+	text = re.ReplaceAllString(text, "")
+	text = strings.ReplaceAll(text, "\n", "")
+	text = strings.ReplaceAll(text, "\r", "")
+	text = strings.ReplaceAll(text, "\t", "")
+
 	var lines []string
 	runes := []rune(text)
 	currentLine := ""

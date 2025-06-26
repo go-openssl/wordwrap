@@ -53,10 +53,18 @@ func TestToPrivateKey(t *testing.T) {
 		t.Error("ToPrivateKey failed")
 		return
 	}
+	if s := wordwrap.New().ToPrivateKey(privateKey); s != privateKey {
+		t.Error("ToPrivateKey failed")
+		return
+	}
 }
 
 func TestToPublicKey(t *testing.T) {
 	if wordwrap.New().ToPublicKey(publicKeyStr) != publicKey {
+		t.Error("ToPublicKey failed")
+		return
+	}
+	if wordwrap.New().ToPublicKey(publicKey) != publicKey {
 		t.Error("ToPublicKey failed")
 		return
 	}
