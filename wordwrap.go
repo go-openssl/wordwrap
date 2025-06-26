@@ -6,6 +6,9 @@ import (
 
 // convert converts the given text to a multi-line string with the specified width.
 func convert(text string, width int) string {
+	strings.ReplaceAll(text, "\n", "")
+	strings.ReplaceAll(text, "\r", "")
+	strings.ReplaceAll(text, "\t", "")
 	var lines []string
 	runes := []rune(text)
 	currentLine := ""
