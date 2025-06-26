@@ -26,24 +26,37 @@ func convert(text string, width int) string {
 }
 
 type Wordwrap struct {
+	width           int
+	privateKeyBegin string
+	privateKeyEnd   string
+	publicKeyBegin  string
+	publicKeyEnd    string
 }
 
-func New() *Wordwrap {
-	return &Wordwrap{}
+func New(opts ...Option) *Wordwrap {
+	w := &Wordwrap{
+		width:           64,
+		privateKeyBegin: "-----BEGIN RSA PRIVATE KEY-----\n",
+		privateKeyEnd:   "\n-----END RSA PRIVATE KEY-----",
+		publicKeyBegin:  "-----BEGIN PUBLIC KEY-----\n",
+		publicKeyEnd:    "\n-----END PUBLIC KEY-----",
+	}
+	for _, opt := range opts {
+		opt(w)
+	}
+	return w
 }
 
 func (w *Wordwrap) ToPrivateKey(text string) string {
-	str := "-----BEGIN RSA PRIVATE KEY-----\n"
-	str += convert(text, 64)
-	str += "\n-----END RSA PRIVATE KEY-----"
-
+	str := w.privateKeyBegin
+	str += convert(text, w.width)
+	str += w.privateKeyEnd
 	return str
 }
 
 func (w *Wordwrap) ToPublicKey(text string) string {
-	str := "-----BEGIN PUBLIC KEY-----\n"
-	str += convert(text, 64)
-	str += "\n-----END PUBLIC KEY-----"
-
+	str := w.publicKeyBegin
+	str += convert(text, w.width)
+	str += w.publicKeyEnd
 	return str
 }
